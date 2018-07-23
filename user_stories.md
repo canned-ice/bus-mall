@@ -15,7 +15,6 @@
 - As a developer, I want to make the results page as self-serve as possible.
 
 
-
 ### Focus group participant
 - As a participant, I want the instructions available and easy to read.
 - As a participant, I want to see my progress.
