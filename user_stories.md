@@ -8,7 +8,8 @@
 
 
 ### Developer
-- As a developer, I want to display the images in a random order to the participant, and record which ones were shown for each selection.
+- As a developer, I want to display the images in a random order to the participant.
+- As a developer, I want to record what the participant clicks on and tally number each image gets over time.
 - As a developer, I want to be able to add and remove images easily.
 - As a developer, I want to create two separate pages: one for participants and one for researchers.
 - As a developer, I want to make the results page as self-serve as possible.
