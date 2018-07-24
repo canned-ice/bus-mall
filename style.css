@@ -1,0 +1,10 @@
+body {
+  background: linear-gradient(turquoise, magenta);
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  border: solid 10px rgb(0, 0, 0);
+  box-sizing: border-box;
+}
