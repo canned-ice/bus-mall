@@ -108,8 +108,14 @@ function handleClick(event) {
   totalClicks++; // bump score of total clicks (until 25)
   if (totalClicks > 4) { // should be 25 clicks
     alert('no more clicks');
-    section.removeEventListener('click', handleClick, false);
-    document.getElementById('display').style.display = 'none';
+    section.removeEventListener('click', handleClick, false); // stop listening for clciks
+    document.getElementById('display').style.display = 'none'; // stop displaying pics
+    var resultSection = document.getElementById('results');
+    for (var m = 0; m < imgObjects.length; m++) {
+      var pElement = document.createElement('p');
+      pElement.textContent = `${imgObjects[m].clicks} votes for the ${imgObjects[m].name}`;
+      resultSection.appendChild(pElement);
+    }
   }
   createImgs();
 }
