@@ -11,6 +11,7 @@ var section = document.getElementById('display');
 function ImageTracker(img) {
   this.name = img.split('.')[0];
   this.path = 'img/' + img;
+  this.totalDisplays = 0;
   this.totalClicks = 0;
 }
 
@@ -29,20 +30,27 @@ console.log(randomNum(imgObjects.length));
 
 var getImageOne = function() {
   imgOne = randomNum(imgObjects.length);
-  noDupes.push(imgOne);
+  if (noDupes.includes(imgOne)) {
+    imgOne = randomNum(imgObjects.length);
+    return getImageOne();
+  } else {
+    noDupes.push(imgOne);
+  }
 };
 var getImageTwo = function() {
   imgTwo = randomNum(imgObjects.length);
-  if (imgTwo === noDupes.includes(imgTwo)) {
+  if (noDupes.includes(imgTwo)) {
     imgTwo = randomNum(imgObjects.length);
+    return getImageTwo();
   } else {
     noDupes.push(imgTwo);
   }
 };
 var getImageThree = function() {
   imgThree = randomNum(imgObjects.length);
-  if (imgThree === noDupes.includes(imgThree)) {
-    imgThree = randomNum.length(imgObjects.length);
+  if (noDupes.includes(imgThree)) {
+    imgThree = randomNum(imgObjects.length);
+    return getImageThree();
   } else {
     noDupes.push(imgThree);
   }
