@@ -12,7 +12,7 @@ function ImageTracker(img) {
   this.name = img.split('.')[0];
   this.path = 'img/' + img;
   this.totalClicks = 0;
-};
+}
 
 for (var i = 0; i < imgs.length; i++) {
   imgObjects.push(new ImageTracker(imgs[i]));
@@ -29,14 +29,14 @@ console.log(randomNum(imgObjects.length));
 
 var getImageOne = function() {
   imgOne = randomNum(imgObjects.length);
-  noDupes = noDupes.push(imgOne);
+  noDupes.push(imgOne);
 };
 var getImageTwo = function() {
   imgTwo = randomNum(imgObjects.length);
   if (imgTwo === noDupes.includes(imgTwo)) {
     imgTwo = randomNum(imgObjects.length);
   } else {
-    noDupes = noDupes.push(imgTwo);
+    noDupes.push(imgTwo);
   }
 };
 var getImageThree = function() {
@@ -44,27 +44,32 @@ var getImageThree = function() {
   if (imgThree === noDupes.includes(imgThree)) {
     imgThree = randomNum.length(imgObjects.length);
   } else {
-    noDupes = noDupes.push(imgThree);
+    noDupes.push(imgThree);
   }
 };
 
-var resetDupes = function() {
+var resetDupes = function() { // reset noDupes function to remove first 3 in array
   for (var j = 0; j < 3; j++) {
-    noDupes = noDupes.shift();
+    noDupes.shift();
   }
 };
 
 var createImgs = function() {
   var imgOneEl = document.createElement('img');
-  var imgUrl = imgObjects.path[imgOne];
+  var imgUrl = imgObjects[imgOne].path;
   imgOneEl.setAttribute('src', imgUrl);
-  var imgTwoEl = document.createElement('img');
-  imgUrl = imgObjects.path[imgTwo];
-  imgTwoEl.setAttribute('src', imgUrl);
-  var imgThreeEl = document.createElement('img');
-  imgUrl = imgObjects.path[imgThree];
-  imgThreeEl.setAttribute('src', imgUrl);
   section.appendChild(imgOneEl);
+  var imgTwoEl = document.createElement('img');
+  imgUrl = imgObjects[imgTwo].path;
+  imgTwoEl.setAttribute('src', imgUrl);
   section.appendChild(imgTwoEl);
+  var imgThreeEl = document.createElement('img');
+  imgUrl = imgObjects[imgThree].path;
+  imgThreeEl.setAttribute('src', imgUrl);
   section.appendChild(imgThreeEl);
 };
+
+getImageOne();
+getImageTwo();
+getImageThree();
+createImgs();
