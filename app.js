@@ -15,8 +15,8 @@ var totalClicks = 0;
 function ImageTracker(img) {
   this.name = img.split('.')[0];
   this.path = `img/${img}`;
-  this.totalDisplays = 0;
-  this.allClicks = 0;
+  this.views = 0;
+  this.clicks = 0;
 }
 
 for (var i = 0; i < imgs.length; i++) {
@@ -25,13 +25,12 @@ for (var i = 0; i < imgs.length; i++) {
 // ImageTracker structure
 //   name: 'name'
 //   path: 'name.jpg'
-//   totalDisplays: 0
-//   totalClicks: 0
+//   views: 0
+//   clicks: 0
 
 var randomNum = function() { // creates a random number
   return Math.floor(Math.random() * Math.floor(imgObjects.length));
 };
-console.log(randomNum());
 
 var getImageOne = function() {
   imgOne = randomNum();
@@ -68,12 +67,25 @@ var resetDupes = function() { // reset noDupes function to remove first 3 in arr
 };
 
 var createImgs = function() {
+  getImageOne();
+  getImageTwo();
+  getImageThree();
+  resetDupes();
   var imgUrl = imgObjects[imgOne].path;
+  var imgTitle = imgObjects[imgOne].name;
   imgLeft.setAttribute('src', imgUrl);
+  imgLeft.setAttribute('title', imgTitle);
+  imgObjects[imgOne].views++;
   imgUrl = imgObjects[imgTwo].path;
+  imgTitle = imgObjects[imgTwo].name;
   imgMid.setAttribute('src', imgUrl);
+  imgMid.setAttribute('title', imgTitle);
+  imgObjects[imgTwo].views++;
   imgUrl = imgObjects[imgThr].path;
+  imgTitle = imgObjects[imgThr].name;
   imgRight.setAttribute('src', imgUrl);
+  imgRight.setAttribute('title', imgTitle);
+  imgObjects[imgThr].views++;
 };
 
 getImageOne();
@@ -87,21 +99,17 @@ function handleClick(event) {
   if (event.target.id === 'container') {
     return alert('click images');
   }
-
   console.log(event.target.title);
-  for(var k =0; k < imgObjects.length; k++) {
+  for(var k = 0; k < imgObjects.length; k++) {
     if (event.target.title === imgObjects[k].name) {
-      imgObjects[k].allClicks++;
-      console.log('imgObjects[k]', imgObjects[k].allClicks);
+      imgObjects[k].clicks++;
     }
   }
-
-  totalClicks++;
-  console.log(totalClicks, 'total clicks');
-  if (totalClicks > 2) {
+  totalClicks++; // bump score of total clicks (until 25)
+  if (totalClicks > 4) { // should be 25 clicks
+    alert('no more clicks');
     section.removeEventListener('click', handleClick, false);
-    return alert('no more clicks');
+    document.getElementById('display').style.display = 'none';
   }
-  console.log(event.target, 'was clicked');
   createImgs();
 }
