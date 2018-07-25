@@ -11,6 +11,7 @@ var imgTwo = 0;
 var imgThr = 0;
 var section = document.getElementById('display');
 var totalClicks = 0;
+var chart;
 
 function ImageTracker(img) {
   this.name = img.split('.')[0];
@@ -106,7 +107,7 @@ function handleClick(event) {
     }
   }
   totalClicks++; // bump score of total clicks (until 25)
-  if (totalClicks > 4) { // should be 25 clicks
+  if (totalClicks > 24) { // should be 25 clicks
     alert('no more clicks');
     section.removeEventListener('click', handleClick, false); // stop listening for clciks
     document.getElementById('display').style.display = 'none'; // stop displaying pics
@@ -116,6 +117,44 @@ function handleClick(event) {
       pElement.textContent = `${imgObjects[m].clicks} votes for the ${imgObjects[m].name}`;
       resultSection.appendChild(pElement);
     }
+    chartData();
+    drawChart();
   }
   createImgs();
+}
+
+var itemList = [];
+var clickList = [];
+
+var chartData = function() {
+  for (var n = 0; n < imgObjects.length; n++) {
+    itemList[n] = imgObjects[n].name;
+    clickList[n] = imgObjects[n].clicks;
+  }
+};
+
+function drawChart() {
+  var ctx = document.getElementById('chart');
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: itemList,
+      datasets: [{
+        label: '# of Votes',
+        data: clickList,
+        backgroundColor: 'purple',
+        borderColor: 'black',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  });
 }
