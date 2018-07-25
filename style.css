@@ -8,3 +8,9 @@ img {
   border: solid 10px rgb(0, 0, 0);
   box-sizing: border-box;
 }
+
+canvas {
+  display: none;
+  width: 500px;
+  height: 500px;
+}
