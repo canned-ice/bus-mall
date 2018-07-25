@@ -1,7 +1,13 @@
 'use strict';
 
+// NOTE: if (ls exists) {retrieve from LS; reassign;} else {create instances}
+if (localStorage.data) {
+  imgObjects = JSON.parse(localStorage.data);
+} else {
+  var imgObjects = [];
+}
+
 var imgs = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
-var imgObjects = [];
 var noDupes = [];
 var imgLeft = document.getElementById('left');
 var imgMid = document.getElementById('mid');
@@ -11,7 +17,6 @@ var imgTwo = 0;
 var imgThr = 0;
 var section = document.getElementById('display');
 var totalClicks = 0;
-var chart;
 
 function ImageTracker(img) {
   this.name = img.split('.')[0];
@@ -33,6 +38,7 @@ var randomNum = function() { // creates a random number
   return Math.floor(Math.random() * Math.floor(imgObjects.length));
 };
 
+// NOTE: DRY this out
 var getImageOne = function() {
   imgOne = randomNum();
   if (noDupes.includes(imgOne)) {
@@ -67,6 +73,7 @@ var resetDupes = function() { // reset noDupes function to remove first 3 in arr
   }
 };
 
+// NOTE: More DRY needed here as well
 var createImgs = function() {
   getImageOne();
   getImageTwo();
@@ -104,6 +111,7 @@ function handleClick(event) {
   for(var k = 0; k < imgObjects.length; k++) {
     if (event.target.title === imgObjects[k].name) {
       imgObjects[k].clicks++;
+      localStorage.setItem('data', JSON.stringify(imgObjects));
     }
   }
   totalClicks++; // bump score of total clicks (until 25)
@@ -135,7 +143,7 @@ var chartData = function() {
 
 function drawChart() {
   var ctx = document.getElementById('chart');
-  chart = new Chart(ctx, {
+  var chart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: itemList,
